@@ -11,6 +11,22 @@
 3. 配置 host-app/public/remoteApp.js 文件，用于加载远程应用，这个后期可以通过服务端的接口来提供这些数据。
 4. 示例 ![启动宿主应用](./1.png) ![加载远程组件](./2.png)
 
+### 启动
+
+```bash
+
+# 打包 my-vue-app 
+cd my-vue-app
+pnpm build 
+
+# 启动静态服务器 根目录
+npx serve -l 3001 -C
+
+# 启动宿主应用
+cd host-app
+pnpm dev
+
+```
 
 ## Host app vite.config.ts 配置 federation 引入远程应用
 

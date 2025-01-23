@@ -94,14 +94,6 @@ export default {
         if (!container) {
           throw new Error(`未在 globalThis 上找到容器: ${app.scope}`)
         }
-        if (typeof container.init === 'function') {
-          // console.log(' __webpack_share_scopes__', __webpack_share_scopes__);
-          // if(typeof __webpack_share_scopes__ !== undefined){
-          //   await container.init(__webpack_share_scopes__.default)
-          // }
-            // await container.init()
-
-        }
 
         // 4) 获取暴露的模块
         const moduleFactory = await container.get('./RemoteApp')
@@ -113,7 +105,7 @@ export default {
         // 这里仅打印一下：
         console.log('拿到了远程组件 =>', RemoteComponent)
 
-        // 4) 直接在指定的DOM节点下挂载这个远程组件
+        // 5) 直接在指定的DOM节点下挂载这个远程组件
         //    这里用 Vue 的 createApp，但并没有在当前组件的 data 里存任何变量
         const containerEl = document.getElementById("remote-app-container");
 
@@ -188,47 +180,6 @@ export default {
       // appInstance.use(store).use(router) ...
       appInstance.mount(containerEl);
 
-    } catch (error) {
-      console.error("动态加载远程应用失败：", error);
-    }
-  },
-
-  /**
-   * 点击列表后，动态加载远程应用及其组件
-   * @param {Object} app {name, url, scope} 远程应用信息
-   */
-  async loadRemote1(app) {
-    try {
-      // 1. 加载 remoteEntry.js
-      await this.loadScript(app.url);
-
-      // 2. 如果是 Webpack Module Federation，需要初始化共享作用域：
-      if (typeof __webpack_init_sharing__ === "function") {
-        await __webpack_init_sharing__("default");
-      }
-
-      // 3. 拿到远程容器对象
-      const container = window[app.scope];
-      if (!container) {
-        throw new Error(`未发现远程容器: window["${app.scope}"]`);
-      }
-
-      // 如果远程容器有 init 方法，则执行（一般 Webpack Module Federation 下有）
-      if (container.init && typeof container.init === "function") {
-        await container.init(__webpack_share_scopes__.default);
-      }
-
-      // 4. 获取远程暴露的模块
-      //    注意：这里 "./Viewer.vue" 要与你远程应用 exposes 中的 key 保持一致
-      //    例如：exposes: { "./Viewer.vue": "./src/Viewer.vue" }
-      // const moduleFactory = await container.get("./Viewer.vue");
-
-      //    例如：exposes: { "./Viewer.vue": "./src/Viewer.vue" }
-      const moduleFactory = await container.get("./RemoteApp");
-
-      // 5. 拿到真正的组件对象
-      const remoteModule = moduleFactory();
-      this.remoteComponent = remoteModule.default || remoteModule;
     } catch (error) {
       console.error("动态加载远程应用失败：", error);
     }
