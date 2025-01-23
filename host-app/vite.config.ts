@@ -9,11 +9,10 @@ export default defineConfig({
     federation({
       name: 'host_app',
       remotes: {
-        // remote_app: 'http://localhost:3001/assets/remoteEntry.js'
-        // 如果路径不同，按实际情况改
-        // 编译时  运行时加载这个远程组件。
+        // 编译时  运行时加载这个远程组件。 下面的调整成运行时加载这个组件
         // remote_app: 'http://localhost:3001/my-vue-app/dist/remoteEntry.js',
-        // 'BimEngine': 'http://localhost:3001/engine-sdk/remoteEntry.js', // Updated path
+
+        // 编译时  运行时加载这个远程组件。
         'BimEngine': {
           external: 'http://localhost:3001/engine-sdk/remoteEntry.js',
           // 告诉插件：这个远程容器是 webpack 打包的 var 格式
