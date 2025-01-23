@@ -19,7 +19,7 @@
 cd my-vue-app
 pnpm build 
 
-# 启动静态服务器 根目录
+# 根目录启动静态服务器，用来提供远程应用静态服务，可以使用任意静态服务器
 npx serve -l 3001 -C
 
 # 启动宿主应用
@@ -42,7 +42,6 @@ export default defineConfig({
     federation({
       name: 'host_app',
       remotes: {
-        // remote_app: 'http://localhost:3001/assets/remoteEntry.js'
         // 如果路径不同，按实际情况改
         remote_app: 'http://localhost:3001/remoteEntry.js'
       },
