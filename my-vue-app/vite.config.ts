@@ -14,7 +14,7 @@ export default defineConfig({
         // 想要暴露给外部使用的模块
         './RemoteApp': './src/App.vue',
       },
-      shared: ['vue'], // 共享依赖
+      // shared: ['vue'], // 共享依赖
       /**
        * 关键：让它自动推断资源路径，不再额外拼接 assets
        */
