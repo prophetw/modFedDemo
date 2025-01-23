@@ -1,6 +1,16 @@
-# Micro APP
+# 模块联邦使用实例 vue 
 
-> nodejs 18
+* 依赖 
+1. nodejs 18
+
+
+## 主要实现步骤 
+
+1. remote 需要配置好 `vite.config.ts` 文件，暴露 federation 模块 见 my-vue-app/vite.config.ts
+2. 宿主应用里面，需要实现运行时加载 remote 的功能，需要配置 `vite.config.ts` 文件，引入 federation 模块，详见 host-app/src/pages/Home.vue
+3. 配置 host-app/public/remoteApp.js 文件，用于加载远程应用，这个后期可以通过服务端的接口来提供这些数据。
+4. 示例 ![启动宿主应用](./1.png) ![加载远程组件](./2.png)
+
 
 ## Host app vite.config.ts 配置 federation 引入远程应用
 

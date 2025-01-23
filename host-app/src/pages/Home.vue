@@ -2,6 +2,7 @@
   <div>
     <h1>Home Page</h1>
     <p>这是主应用的主页。</p>
+    <button type="button" @click="incrementCount">count is {{ count }}</button>
     <p>
       <router-link to="/pageA">前往 PageA</router-link> |
       <router-link to="/viewer">前往 远程应用 viewer </router-link> |
@@ -33,7 +34,15 @@ export default {
       // 你也可以在 created() 或 onMounted() 阶段通过接口获取
       remoteApps: window.remoteAppList || [],
       remoteComponent: null, // 用于存储拿到的远程组件
+      count: 0,
     }
+  },
+  mounted: function () {
+    // 监听全局事件
+    window.addEventListener("count-change", (event) => {
+      console.log('event.detail.count', event.detail.count)
+      this.count = event.detail.count
+    })
   },
   methods: {
 

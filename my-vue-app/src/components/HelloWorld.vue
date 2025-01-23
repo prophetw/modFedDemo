@@ -34,6 +34,9 @@ export default {
     incrementCount() {
       console.log('qqqqqqq', this.count)
       this.count++
+      window.dispatchEvent(new CustomEvent("count-change", { detail: {
+        count: this.count
+      } }))
     }
   }
 }
