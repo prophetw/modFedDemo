@@ -9,7 +9,7 @@ import Viewer from '../pages/Viewer.vue'
 // @ts-ignore
 // const RemoteMicroFront = defineAsyncComponent(() => import('remote_app/RemoteApp'))
 
-console.log(' remote ', RemoteMicroFront);
+// console.log(' remote ', RemoteMicroFront);
 
 const routes = [
   {

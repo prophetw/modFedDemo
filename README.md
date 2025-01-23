@@ -1,5 +1,7 @@
 # Micro APP
 
+> nodejs 18
+
 ## Host app vite.config.ts 配置 federation 引入远程应用
 
 ```ts vite.config.ts

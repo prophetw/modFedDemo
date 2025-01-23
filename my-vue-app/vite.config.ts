@@ -25,6 +25,6 @@ export default defineConfig({
     assetsDir: '',
     target: 'esnext',
     minify: false,
-    cssCodeSplit: false
+    cssCodeSplit: false,
   },
 })
