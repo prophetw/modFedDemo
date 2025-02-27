@@ -1,18 +1,47 @@
-# Vue 3 + TypeScript + Vite
+## 导出控制
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+```ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import federation from '@originjs/vite-plugin-federation'
 
-## Recommended IDE Setup
+export default defineConfig({
+   base: './', // 相对路径模式
+  plugins: [
+    vue(),
+     federation({
+      name: 'remote_app', // 远程应用名
+      filename: 'remoteEntry.js', // 暴露出来的入口文件
+      exposes: {
+        // 想要暴露给外部使用的模块
+        // './RemoteApp': './src/App.vue',
+        './RemoteApp': './src/components/HelloWorld.vue',
+      },
+      shared: ['vue'], // 共享依赖
+    }),
+  ],
+  build: {
+    assetsDir: '',
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+// type GeneratedCodePreset = 'es5' | 'es2015';
+// The Module Federation plugin (@originjs/vite-plugin-federation) uses top-level await statements in its generated code
+// Top-level await is only available in modern JavaScript (ES2022+)
 
-## Type Support For `.vue` Imports in TS
+    target: 'esnext',
+    minify: true,
+    cssCodeSplit: true,
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+// export type InternalModuleFormat = 'amd' | 'cjs' | 'es' | 'iife' | 'system' | 'umd';
+// export type ModuleFormat = InternalModuleFormat | 'commonjs' | 'esm' | 'module' | 'systemjs';
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+    // 如果需要导出 systemjs 模块 
+   //  rollupOptions: {
+   //    output: {
+   //      format: 'system', // 这里指定输出格式为 system
+   //    },
+   //  },
+  },
+})
+
+```

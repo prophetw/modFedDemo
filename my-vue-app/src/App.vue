@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import Viewer from './components/Viewer.vue'
 </script>
 
 <template>
   nihao 
   <HelloWorld msg="Vite + Vue" />
+  <Viewer />
 </template>
 
 <style scoped>

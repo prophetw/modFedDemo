@@ -1,29 +1,3 @@
-<template>
-  <div>
-    <h1>Home Page</h1>
-    <p>这是主应用的主页。</p>
-    <button type="button" @click="incrementCount">count is {{ count }}</button>
-    <p>
-      <router-link to="/pageA">前往 PageA</router-link> |
-      <router-link to="/viewer">前往 远程应用 viewer </router-link> |
-      <!-- <router-link to="/proj-B">访问远程应用</router-link> -->
-    </p>
-    <ul>
-      <li v-for="(app, index) in remoteApps" :key="index">
-        <button @click="loadRemote(app)">{{ app.name }}</button>
-      </li>
-    </ul>
-    <!-- 如果成功加载了远程组件，就渲染在此处 -->
-    <div v-if="remoteComponent">
-      <h3>远程组件已经加载：</h3>
-      <component :is="remoteComponent"></component>
-    </div>
-
-    <!-- 这个空div将是远程组件挂载位置 -->
-    <div id="remote-app-container"></div>
-  </div>
-</template>
-
 <script>
 import {createApp} from 'vue';
 
@@ -186,3 +160,29 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <h1>Home Page</h1>
+    <p>这是主应用的主页。</p>
+    <button type="button" @click="incrementCount">count is {{ count }}</button>
+    <p>
+      <router-link to="/pageA">前往 PageA</router-link> |
+      <!-- <router-link to="/viewer">前往 viewer </router-link> | -->
+      <!-- <router-link to="/proj-B">访问远程应用</router-link> -->
+    </p>
+    <ul>
+      <li v-for="(app, index) in remoteApps" :key="index">
+        <button @click="loadRemote(app)">{{ app.name }}</button>
+      </li>
+    </ul>
+    <!-- 如果成功加载了远程组件，就渲染在此处 -->
+    <div v-if="remoteComponent">
+      <h3>远程组件已经加载：</h3>
+      <component :is="remoteComponent"></component>
+    </div>
+
+    <!-- 这个空div将是远程组件挂载位置 -->
+    <div id="remote-app-container"></div>
+  </div>
+</template>
