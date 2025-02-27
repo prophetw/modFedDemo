@@ -20,6 +20,7 @@ export default {
   methods: {
     setViewPosition() {
       console.log('setViewPosition')
+      // TODO: window.viewer window.currentProject  两个接口需要与宿主应用保持一致
       if(window.viewer && window.currentProject){
         window.viewer.camera?.setViewToProject(window.currentProject)
       }

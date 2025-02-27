@@ -1,5 +1,7 @@
 <script lang="ts">
 
+// 这里是给子应用 提供图形引擎的初始化和项目打开的方法
+
 const BimEngine = window.BimEngine
 BimEngine.setBaseUrl('../engine-sdk')
 const serverUrl = 'http://139.224.111.10:8765'

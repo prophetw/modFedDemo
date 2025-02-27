@@ -16,7 +16,7 @@
 3. 配置 host-app/public/remoteApp.js 文件，用于加载远程应用，这个后期可以通过服务端的接口来提供这些数据。
 4. 示例 ![启动宿主应用](./1.png) ![加载远程组件](./2.png)
 
-### 启动
+### 启动 demo 
 
 ```bash
 
@@ -32,6 +32,72 @@ cd host-app
 pnpm dev
 
 ```
+
+### 关于宿主应用和 远程应用的通信
+
+```js
+
+// 子应用
+
+// 宿主应用
+  mounted: function () {
+    // 监听全局事件
+    window.addEventListener("count-change", (event) => {
+      console.log('event.detail.count', event.detail.count)
+      this.count = event.detail.count
+    })
+  },
+
+// 远程应用 HelloWorld.vue 有一段使用自定义事件的通信 可以用来参考
+    incrementCount() {
+      console.log('qqqqqqq', this.count)
+      this.count++
+      window.dispatchEvent(new CustomEvent("count-change", {
+        detail: {
+          count: this.count
+        }
+      }))
+    }
+
+// 远程应用实现的时候 可以把事件以JSON文件的方式保存下来。供宿主应用查看
+const event = {
+  "events": [
+    {
+      "name": "count-change",
+      "description": "当计数器值发生变化时触发",
+      "trigger": "用户点击 'incrementCount' 按钮",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "number",
+          "required": true,
+          "description": "最新的计数器值"
+        }
+      ]
+    },
+    {
+      "name": "position-change",
+      "description": "当按钮位置发生变化时触发",
+      "trigger": "用户拖动 'Draggable Button' 结束时",
+      "parameters": [
+        {
+          "name": "posX",
+          "type": "number",
+          "required": true,
+          "description": "按钮新的 X 坐标"
+        },
+        {
+          "name": "posY",
+          "type": "number",
+          "required": true,
+          "description": "按钮新的 Y 坐标"
+        }
+      ]
+    }
+  ]
+}
+```
+
 
 ## Host app vite.config.ts 配置 federation 引入远程应用
 
